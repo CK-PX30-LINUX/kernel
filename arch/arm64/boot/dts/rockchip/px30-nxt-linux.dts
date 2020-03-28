@@ -665,6 +665,12 @@
 			};
 		};
 	};
+
+	eeprom@50 {
+        	compatible = "atmel,24c02";
+        	reg = <0x50>;
+        	pagesize = <16>;
+	};
 };
 
 &i2s1_2ch {
@@ -768,7 +774,7 @@
 	supports-sd;
 	card-detect-delay = <800>;
 	ignore-pm-notify;
-	/*cd-gpios = <&gpio2 4 GPIO_ACTIVE_HIGH>; [> CD GPIO <]*/
+	//cd-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>; /*[> CD GPIO <]*/
 	sd-uhs-sdr12;
 	sd-uhs-sdr25;
 	sd-uhs-sdr50;
@@ -800,6 +806,18 @@
 &uart1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart1_xfer &uart1_cts>;
+	status = "okay";
+};
+
+&uart0 {
+	status = "okay";
+};
+
+&uart3 {
+	status = "okay";
+};
+
+&uart5 {
 	status = "okay";
 };
 
