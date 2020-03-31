@@ -79,6 +79,54 @@
 			gpios = <&gpio3 19 GPIO_ACTIVE_HIGH>;
                         default-state = "off";
 		};
+		3D0 {
+			gpios = <&gpio3 4 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3D1 {
+			gpios = <&gpio3 5 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3D2 {
+			gpios = <&gpio3 6 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3D3 {
+			gpios = <&gpio3 7 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3D4 {
+			gpios = <&gpio3 8 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3D5 {
+			gpios = <&gpio3 9 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3D6 {
+			gpios = <&gpio3 10 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3D7 {
+			gpios = <&gpio3 11 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3C3 {
+			gpios = <&gpio3 12 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3C4 {
+			gpios = <&gpio3 13 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3C5 {
+			gpios = <&gpio3 14 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
+		3C6 {
+			gpios = <&gpio3 15 GPIO_ACTIVE_HIGH>;
+                        default-state = "off";
+		};
         };
 
 	backlight: backlight {
