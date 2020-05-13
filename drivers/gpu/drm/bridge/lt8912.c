@@ -81,15 +81,20 @@ static void lt8912_init(struct lt8912 *lt8912)
 
 	/* TxAnalog */
 	regmap_write(lt8912->regmap[0], 0x31, 0xa1);
-	regmap_write(lt8912->regmap[0], 0x32, 0xa1);
-	regmap_write(lt8912->regmap[0], 0x33, 0x03);
+	regmap_write(lt8912->regmap[0], 0x32, 0xbf);
+	regmap_write(lt8912->regmap[0], 0x33, 0x17);
 	regmap_write(lt8912->regmap[0], 0x37, 0x00);
 	regmap_write(lt8912->regmap[0], 0x38, 0x22);
 	regmap_write(lt8912->regmap[0], 0x60, 0x82);
 
 	/* CbusAnalog */
 	regmap_write(lt8912->regmap[0], 0x39, 0x45);
+	regmap_write(lt8912->regmap[0], 0x3a, 0x00);
 	regmap_write(lt8912->regmap[0], 0x3b, 0x00);
+
+	/* MIPI Analog */
+	regmap_write(lt8912->regmap[0], 0x3e, 0xc6);
+	regmap_write(lt8912->regmap[0], 0x41, 0x7c);
 
 	/* HDMIPllAnalog */
 	regmap_write(lt8912->regmap[0], 0x44, 0x31);
@@ -135,8 +140,9 @@ static void lt8912_init(struct lt8912 *lt8912)
 	regmap_write(lt8912->regmap[1], 0x4f, 0xde);
 	regmap_write(lt8912->regmap[1], 0x50, 0xc0);
 	regmap_write(lt8912->regmap[1], 0x51, 0x80);
-	regmap_write(lt8912->regmap[1], 0x51, 0x00);
+//	regmap_write(lt8912->regmap[1], 0x51, 0x00);
 
+	regmap_write(lt8912->regmap[1], 0x1e, 0x4f);
 	regmap_write(lt8912->regmap[1], 0x1f, 0x5e);
 	regmap_write(lt8912->regmap[1], 0x20, 0x01);
 	regmap_write(lt8912->regmap[1], 0x21, 0x2c);
@@ -154,9 +160,9 @@ static void lt8912_init(struct lt8912 *lt8912)
 	regmap_write(lt8912->regmap[1], 0x2d, 0xc8);
 	regmap_write(lt8912->regmap[1], 0x2e, 0x00);
 
-	regmap_write(lt8912->regmap[0], 0x03, 0x7f);
-	usleep_range(10000, 20000);
-	regmap_write(lt8912->regmap[0], 0x03, 0xff);
+//	regmap_write(lt8912->regmap[0], 0x03, 0x7f);
+//	usleep_range(10000, 20000);
+//	regmap_write(lt8912->regmap[0], 0x03, 0xff);
 
 	regmap_write(lt8912->regmap[1], 0x42, 0x64);
 	regmap_write(lt8912->regmap[1], 0x43, 0x00);
@@ -181,7 +187,7 @@ static void lt8912_init(struct lt8912 *lt8912)
 	regmap_write(lt8912->regmap[1], 0x5a, 0x8a);
 	regmap_write(lt8912->regmap[1], 0x5b, 0x00);
 	regmap_write(lt8912->regmap[1], 0x5c, 0x34);
-	regmap_write(lt8912->regmap[1], 0x1e, 0x4f);
+//	regmap_write(lt8912->regmap[1], 0x1e, 0x4f);
 	regmap_write(lt8912->regmap[1], 0x51, 0x00);
 
 	regmap_write(lt8912->regmap[0], 0xb2, 0x01);
@@ -194,14 +200,26 @@ static void lt8912_init(struct lt8912 *lt8912)
 
 	regmap_write(lt8912->regmap[2], 0x3c, 0x41);
 
+	/* AVI config */
+	// 1280x720 
+	regmap_write(lt8912->regmap[2], 0x3e, 0x0a);
+	regmap_write(lt8912->regmap[2], 0x43, 0x31);
+	regmap_write(lt8912->regmap[2], 0x44, 0x10);
+	regmap_write(lt8912->regmap[2], 0x45, 0x2A);
+	regmap_write(lt8912->regmap[2], 0x47, 0x04);
+
 	/* MIPIRxLogicRes */
 	regmap_write(lt8912->regmap[0], 0x03, 0x7f);
 	usleep_range(10000, 20000);
 	regmap_write(lt8912->regmap[0], 0x03, 0xff);
 
-	regmap_write(lt8912->regmap[1], 0x51, 0x80);
+	regmap_write(lt8912->regmap[0], 0x05, 0xfb);
 	usleep_range(10000, 20000);
-	regmap_write(lt8912->regmap[1], 0x51, 0x00);
+	regmap_write(lt8912->regmap[0], 0x05, 0xff);
+
+//	regmap_write(lt8912->regmap[1], 0x51, 0x80);
+//	usleep_range(10000, 20000);
+//	regmap_write(lt8912->regmap[1], 0x51, 0x00);
 }
 
 static void lt8912_exit(struct lt8912 *lt8912)
@@ -235,6 +253,7 @@ static void lt8912_power_on(struct lt8912 *lt8912)
 	gpiod_direction_output(lt8912->reset_n, 1);
 	msleep(120);
 	gpiod_direction_output(lt8912->reset_n, 0);
+	msleep(100);
 }
 
 static void lt8912_power_off(struct lt8912 *lt8912)
