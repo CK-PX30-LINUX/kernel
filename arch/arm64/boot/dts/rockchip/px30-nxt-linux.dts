@@ -166,6 +166,7 @@
 			240 241 242 243 244 245 246 247
 			248 249 250 251 252 253 254 255>;
 		default-brightness-level = <200>;
+			status = "disabled";
 	};
 
 	charge-animation {
@@ -241,7 +242,7 @@
 	wireless-wlan {
 		compatible = "wlan-platdata";
 		wifi_chip_type = "AP6210";
-		WIFI,host_wake_irq = <&gpio0 RK_PB2 GPIO_ACTIVE_HIGH>;
+		WIFI,host_wake_irq = <&gpio0 RK_PB7 GPIO_ACTIVE_HIGH>;
 		status = "okay";
 	};
 
@@ -256,7 +257,7 @@
 		BT,reset_gpio = <&gpio0 RK_PA1 GPIO_ACTIVE_HIGH>;
 		BT,wake_gpio = <&gpio2 RK_PB0 GPIO_ACTIVE_HIGH>;
 		BT,wake_host_irq = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
-		status = "okay";
+		status = "disabled";
 	};
 };
 
@@ -721,10 +722,6 @@
 	pmuio2-supply = <&vcc3v0_pmu>;
 };
 
-&pwm1 {
-	status = "okay";
-};
-
 &rk_rga {
 	status = "okay";
 };
@@ -801,6 +798,8 @@
 
 &uart3 {
 	status = "okay";
+	pinctrl-names = "default";
+        pinctrl-0 = <&uart3m0_xfer>;
 };
 
 &uart5 {
